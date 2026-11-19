@@ -1,0 +1,23 @@
+{
+  "client": "StubCo",
+  "engagement": "Stub Web Test",
+  "engagement_window": {
+    "start": "2000-01-01",
+    "end": "2999-12-31"
+  },
+  "in_scope_hosts": [
+    "app.stub.test",
+    "live.stub.test"
+  ],
+  "production_hosts": [
+    "live.stub.test"
+  ],
+  "in_scope_ips": [
+    "198.51.100.0/24",
+    "127.0.0.0/8"
+  ],
+  "scope_basis": {
+    "app.stub.test": "Named in Stub report s.2.1"
+  },
+  "third_party_lookups": false
+}

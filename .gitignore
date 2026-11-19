@@ -1,0 +1,30 @@
+# --- Secrets -------------------------------------------------------------
+# Live Gemini / Anthropic API keys and the WPScan token. Never commit.
+webpeek.conf
+*.conf
+!webpeek.conf.example
+
+# --- Client data ---------------------------------------------------------
+# Scan output: target hostnames, IPs, findings, HTTP transcripts.
+webpeek_output/
+
+# Real target lists name client hosts. The example stays tracked.
+targets*.txt
+!targets.txt.example
+# Old scope files from before v1.7 (client hosts and engagement windows).
+/scope*.json
+
+# --- Python --------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- Editor / OS ---------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini

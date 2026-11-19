@@ -1,0 +1,58 @@
+# webpeek configuration
+#
+# Copy this to webpeek.conf, in THIS folder, next to webpeek.py:
+#
+#   cp webpeek.conf.example webpeek.conf
+#   chmod 600 webpeek.conf
+#   nano webpeek.conf
+#   ./webpeek.py --show-config            # check what was picked up (keys masked)
+#
+# !! webpeek.conf holds live keys and sits inside the evidence pack. Keep it
+# !! OUT of any submission or commit (.gitignore it; exclude it from the zip).
+#
+
+[ai]
+# AI provider for the CSP review: gemini or anthropic
+provider = gemini
+
+# Model per provider. Change these when a model is retired.
+gemini_model = gemini-4-hydrogen
+anthropic_model = claude-sonnet-4-5
+
+# Gemini 4 thinking level: low, medium, high or xhigh.
+# Empty = the model's own default (HIGH on gemini-4-hydrogen).
+# A CSP review rarely needs more than medium, which is faster and cheaper.
+gemini_thinking_level =
+
+# API keys. A paid-tier Gemini key gives higher rate limits than the free tier.
+gemini_api_key =
+anthropic_api_key =
+
+# Only for an internal gateway. Leave empty for the vendors' own endpoints.
+gemini_base_url =
+anthropic_base_url =
+
+[install]
+# Python tools (dirsearch, wafw00f) are each installed into their OWN venv
+# under this directory - never with system pip, apt or pipx.
+# Empty = /opt/exfiltra-webpeek/venvs
+venv_root =
+# Extra pip arguments for those installs, e.g. an internal mirror:
+#   pip_args = --index-url https://pypi.internal.example/simple
+pip_args =
+# Root for everything the installer builds: venvs/, bin/ (go tools), testssl.sh/.
+# Empty = /opt/exfiltra-webpeek
+opt_root =
+# testssl.sh release branch for the git install (used when apt has no
+# testssl.sh package). Empty = 3.2
+testssl_ref =
+# SecLists wordlists for ffuf on non-Kali systems (Kali uses the apt package).
+# Branch/tag to download from, and a mirror base URL if GitHub is blocked.
+# Empty = master / https://raw.githubusercontent.com/danielmiessler/SecLists
+seclists_ref =
+seclists_base_url =
+
+[wpscan]
+# WPScan API token (https://wpscan.com/profile). Without it WPScan still
+# enumerates, but returns no vulnerability data.
+api_token =

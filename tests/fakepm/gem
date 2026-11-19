@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "gem $*" >> "$FAKEPM_LOG"
+printf '#!/bin/sh\necho "Current Version: 3.8.28"\n' > "$FAKEBIN/wpscan"; chmod +x "$FAKEBIN/wpscan"

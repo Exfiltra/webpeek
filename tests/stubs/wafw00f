@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+import sys, os, json; sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+from _common import *
+if "--version" in A: print("[+] The version of WAFW00F you have is v2.3.1"); sys.exit()
+url = A[0]
+print("                ~ WAFW00F : v2.3.1 ~\n[*] Checking " + url)
+print("ARGS: " + " ".join(A))
+waf = {"url": url, "detected": True, "firewall": "Cloudflare", "manufacturer": "Cloudflare Inc."} \
+      if url.startswith("https") else {"url": url, "detected": False, "firewall": "None", "manufacturer": "None"}
+print(f"[+] The site {url} is behind {waf['firewall']} WAF." if waf["detected"] else "[-] No WAF detected by the generic detection")
+w(arg("-o"), json.dumps([waf]))

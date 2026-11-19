@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+echo "go $* | GOBIN=${GOBIN:-unset}" >> "$FAKEPM_LOG"
+[ "$1" = env ] && { echo "$HOME/go"; exit 0; }
+mod="${@: -1}"
+case "$mod" in
+  *lc/gau*) echo "go: downloading github.com/lc/gau/v2 v2.2.4"
+            echo "go: github.com/lc/gau/v2/cmd/gau@latest: module requires go >= 1.99 (running go 1.22)"; exit 1 ;;
+esac
+name=$(basename "${mod%@*}"); [ "$name" = v3 ] && name=nuclei
+mkdir -p "$GOBIN" && printf '#!/bin/sh\necho "[INF] Current Version: v1.0 projectdiscovery"\n' > "$GOBIN/$name" && chmod +x "$GOBIN/$name"

@@ -1,0 +1,27 @@
+# webpeek targets file
+#
+# One target per line. A target may be a hostname, an IP, or a URL (a URL limits
+# the web tools to that exact URL). Blank lines and anything after '#' are
+# ignored. A line may end with the flag `prod` to scan that host at reduced
+# "production" intensity (nmap --max-rate 100, nuclei -rl 20, ffuf -rate 20,
+# WPScan --throttle 500).
+#
+# This list IS the allow-list: the active tools only ever touch what is named
+# here, and any redirect off to a host not on the list is refused. There is no
+# engagement-window check - authorisation for the engagement lives in the
+# contract, and this file is your record of what that contract permits. Keep it
+# under change control (e.g. in the engagement repo) if you want an audit trail.
+#
+# Run with:  sudo ./webpeek.py --targets targets.txt
+#
+# Example (delete these and add your own):
+
+app.example.com            prod       # live customer-facing app
+api.example.com            prod
+staging.example.com                   # non-production, full intensity
+https://portal.example.com/app        # web tools limited to this URL
+
+# A bare CIDR range is containment-only: it is never scanned itself, but a
+# redirect into it during the CSP fetch is allowed. Name the hosts you want
+# scanned individually above.
+# 10.0.0.0/24

@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+from _common import *
+if "--version" in A: print("gau version: 2.2.4"); sys.exit()
+host = A[-1]
+print("ARGS: " + " ".join(A))
+urls = [f"https://{host}/", f"https://{host}/login?next=/admin", f"https://{host}/static/app.js",
+        f"https://{host}/backup/db.sql", f"https://{host}/api/v1/users?id=1"]
+w(arg("--o"), "\n".join(urls) + "\n")

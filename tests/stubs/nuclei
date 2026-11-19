@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+import sys, os, json; sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+from _common import *
+if "-version" in A: print("[INF] Nuclei Engine Version: v3.3.5", file=sys.stderr); sys.exit()
+if "-update-templates" in A: print("[INF] nuclei-templates are up to date"); sys.exit()
+print("ARGS: " + " ".join(A))
+print("[0:00:30] | Templates: 8123 | Hosts: 1 | RPS: 140 | Matched: 2 | Errors: 0 | Requests: 4200/8123 (51%)")
+f = [{"template-id":"tech-detect","info":{"severity":"info"}},{"template-id":"missing-csp","info":{"severity":"info"}},{"template-id":"wp-xmlrpc","info":{"severity":"low"}}]
+w(arg("-jle"), "".join(json.dumps(x)+"\n" for x in f)); w(arg("-o"), "[tech-detect] [http] [info] x\n")
+print("\x1b[92m[tech-detect]\x1b[0m [http] [info] " + arg("-u"))

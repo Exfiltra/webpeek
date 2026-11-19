@@ -1,0 +1,10 @@
+{
+  "client": "StubCo",
+  "engagement_window": {
+    "start": "2000-01-01",
+    "end": "2000-01-31"
+  },
+  "in_scope_hosts": [
+    "app.stub.test"
+  ]
+}

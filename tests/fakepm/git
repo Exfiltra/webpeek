@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "git $*" >> "$FAKEPM_LOG"
+dest="${@: -1}"; mkdir -p "$dest" && printf '#!/bin/sh\necho "testssl.sh 3.2.1"\n' > "$dest/testssl.sh" && chmod +x "$dest/testssl.sh"

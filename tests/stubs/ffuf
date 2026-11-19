@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+import sys, os, json; sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+from _common import *
+if "-V" in A: print("ffuf version: 2.1.0-dev"); sys.exit()
+sys.stderr.write("        /'___\\  /'___\\\n :: Method : GET\n :: URL : " + arg("-u") + "\n")
+for i in range(1, 6): sys.stderr.write(f"\r:: Progress: [{i*1000}/5000] :: Job [1/1] :: 400 req/sec :: Duration: [0:00:0{i}] :: Errors: 0 ::"); sys.stderr.flush()
+sys.stderr.write("\n")
+print("admin                   [Status: 301, Size: 0]\nlogin                   [Status: 200, Size: 1200]")
+w(arg("-o"), json.dumps({"results":[{"input":{"FUZZ":"admin"}},{"input":{"FUZZ":"login"}},{"input":{"FUZZ":"api"}}]}))

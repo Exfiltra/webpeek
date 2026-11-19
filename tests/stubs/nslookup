@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+import sys, os
+if "-version" in sys.argv: print("nslookup 9.18.28"); sys.exit()
+# Report any secret that leaked into this child process's environment.
+for v in ("GEMINI_API_KEY", "GOOGLE_API_KEY", "ANTHROPIC_API_KEY", "WPSCAN_API_TOKEN"):
+    if os.environ.get(v):
+        print(f"LEAKED_ENV {v}")
+print(f"Server: 1.1.1.1\nName: {sys.argv[-1]}\nAddress: 203.0.113.10")

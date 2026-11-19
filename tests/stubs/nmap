@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+import sys, os, time; sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+from _common import *
+if "--version" in A: print("Nmap version 7.98 ( https://nmap.org )"); sys.exit()
+if os.environ.get("STUB_NMAP_SLEEP"): 
+    print("Initiating SYN Stealth Scan", flush=True); time.sleep(int(os.environ["STUB_NMAP_SLEEP"]))
+host = A[-1]
+print(f"Starting Nmap 7.98 ( https://nmap.org ) at 2026-11-19\nNmap scan report for {host} (203.0.113.10)")
+print("ARGS: " + " ".join(A))
+if "-p-" in A:
+    xml = '<?xml version="1.0"?><nmaprun><host><ports>' + "".join(
+        f'<port protocol="tcp" portid="{p}"><state state="open"/></port>' for p in (80,443,8080)) + \
+        '<port protocol="tcp" portid="22"><state state="filtered"/></port></ports></host></nmaprun>'
+    w(arg("-oX"), xml); w(arg("-oN"), "80/tcp open http\n443/tcp open https\n8080/tcp open http-proxy\n")
+    print("80/tcp   open  http\n443/tcp  open  https\n8080/tcp open  http-proxy")
+elif "-sV" in A:
+    base = arg("-oA")
+    svc = [(80,"http","nginx","1.24.0",""),(443,"http","nginx","1.24.0","ssl"),(8080,"http-proxy","","","")]
+    p = arg("-p").split(",")
+    xml = '<?xml version="1.0"?><nmaprun><host><ports>' + "".join(
+        f'<port protocol="tcp" portid="{n}"><state state="open"/><service name="{nm}" product="{pr}" version="{v}"' + (f' tunnel="{t}"' if t else "") + '/></port>'
+        for n,nm,pr,v,t in svc if str(n) in p) + '</ports></host></nmaprun>'
+    w(base+".xml", xml); w(base+".nmap", "service scan\n"); w(base+".gnmap", "gnmap\n")
+    print("PORT    STATE SERVICE  VERSION\n80/tcp  open  http     nginx 1.24.0\n443/tcp open  ssl/http nginx 1.24.0")

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Fake apt-get imitating Ubuntu 24.04: Debian packages install, Kali-only ones don't exist.
+echo "apt-get $* | NEEDRESTART_MODE=${NEEDRESTART_MODE:-unset} DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-unset}" >> "$FAKEPM_LOG"
+[ "$1" = update ] && { echo "Reading package lists... Done"; exit 0; }
+pkg="${@: -1}"
+mk(){ printf '#!/bin/sh\necho "%s 1.0"\n' "$1" > "$FAKEBIN/$1"; chmod +x "$FAKEBIN/$1"; }
+case "$pkg" in
+  bind9-dnsutils) mk nslookup ;;
+  ffuf) mk ffuf ;; sslscan) mk sslscan ;; nmap) mk nmap ;;
+  golang-go|ruby-dev|build-essential|git) : ;;
+  *) echo "Reading package lists..."; echo "E: Unable to locate package $pkg"; exit 100 ;;
+esac
+echo "Setting up $pkg ..."; exit 0

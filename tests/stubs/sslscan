@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+from _common import *
+if "--version" in A: print("\t\t2.1.4-static"); sys.exit()
+w(arg("--xml"), "<document><ssltest/></document>"); print("Testing SSL server " + A[-1] + "\n  TLSv1.2   enabled\n  TLSv1.3   enabled")
